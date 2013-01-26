@@ -1,0 +1,14 @@
+safe:        false
+auto:        false
+server:      false
+server_port: 4000
+baseurl:    /jekyll_demo
+url: http://localhost:4000
+
+source:      .
+destination: ./_site
+plugins:     ./_plugins
+markdown: rdiscount
+pygments: false
+paginate: 3
+permalink: date

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>{{ page.title }}</title>
+   <meta name="author" content="Mark Bahnman" />
+   <!-- Insert CSS here -->
+   <link href="css/bootstrap.min.css" rel="stylesheet">
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+   <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+    </style>
+    <link href="/css/bootstrap-responsive.css" rel="stylesheet">
+   
+   </head>
+   <body>
+   
+   <!-- Nav Bar Header -->
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">Mark Bahnman</a>
+          <div class="nav-collapse collapse">
+            <p class="navbar-text pull-right">
+              <img src="img/blacktocat-32.png" />
+            </p>
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+	
+   {{content}}
+   
+   <!-- Insert footer here -->
+   
+  
+   <!-- Le javascript
+   ================================================== -->
+   <!-- Placed at the end of the document so the pages load faster -->
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>
