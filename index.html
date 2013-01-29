@@ -4,44 +4,43 @@ title: Mark Bahnman
 ---
 
     <div class="container-fluid">
-      <div class="row-fluid">
+	<div class="row-fluid">
         <div class="span9">
-          <div class="row-fluid">
+		<div class="row-fluid">
+	{% for post in paginator.posts limit:3 %}
             <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
+              <h2>{{ post.title }}</h2>
+              <p>{{post.date}}</p>
+			  <p><a class="btn" href="{{ post.url }}">Read More &raquo;</a></p>
             </div><!--/span-->
+    {% endfor %}
+		</div><!--/row-->
+		<div class="row-fluid">
+	{% for post in paginator.posts limit:3 offset:3 %}
             <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-          </div><!--/row-->
-          <div class="row-fluid">
-            <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-          </div><!--/row-->
-        </div><!--/span-->
-      </div><!--/row-->
-      <hr>
+              <h2>{{ post.title }}</h2>
+              <p>{{post.date}}</p>
+			  <p><a class="btn" href="{{ post.url }}">Read More &raquo;</a></p>
+            </div><!--/span-->     
+	{% endfor %}
+		</div><!--/row-->
+	</div><!--/span9-->
+		
+	<div class="row-fluid">
+	{% if paginator.total_pages > 1 %}
+		{% if paginator.previous_page %}
+			<a href="/page{{paginator.previous_page}}" class="previous">Previous</a>
+		{% else %}
+			<span class="previous">Previous</span>
+		{% endif %}
+		<span class="page_number">Page: {{paginator.page}} of {{paginator.total_pages}}</span>
+		{% if paginator.next_page %}
+			<a href="/page{{paginator.next_page}}" class="next ">Next</a>
+		{% else %}
+			<span class="next ">Next</span>
+		{% endif %}
+	{% endif %}
+	<hr>
+	</div>
     </div><!--/.fluid-container-->
 
