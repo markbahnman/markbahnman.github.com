@@ -4,31 +4,13 @@
    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
    <title>{{ page.title }}</title>
    <meta name="author" content="Mark Bahnman" />
-   <!-- Insert CSS here -->
-   <link href="css/bootstrap.min.css" rel="stylesheet">
-   <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-      .sidebar-nav {
-        padding: 9px 0;
-      }
-    </style>
-    <link href="/css/bootstrap-responsive.css" rel="stylesheet">
+   {% include css.html %}
    </head>
    <body>
 	{% include nav_header.html %}
 	
 	{{content}}
    
-   <!-- Insert footer here -->
-   
-  
-   <!-- Le javascript
-   ================================================== -->
-   <!-- Placed at the end of the document so the pages load faster -->
-		<script src="http://code.jquery.com/jquery-latest.js"></script>
-		<script src="js/bootstrap.min.js"></script>
+	{% include js.html %}
 	</body>
 </html>

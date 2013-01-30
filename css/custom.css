@@ -1,0 +1,13 @@
+/* 
+ * Custom CSS for markbahnman.github.com
+ */
+
+body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+}
+
+.nav-icon {
+    color: #ffffff;
+    vertical-align: middle;
+}
