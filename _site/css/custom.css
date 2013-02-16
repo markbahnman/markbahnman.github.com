@@ -1,0 +1,90 @@
+/* 
+ * Custom CSS for markbahnman.github.com
+ */
+body {
+    padding-bottom: 40px;
+    padding-top: 60px;
+}
+
+.date {
+    color: #eeeeee;
+}
+
+.title {
+    color:#1DA0FF;
+}
+
+.subtitle {
+    color: #F9440E;
+    margin-left:20px;
+}
+
+.navbar .brand {
+    font-family: 'Droid Sans', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    padding: 8px 20px;
+    color:#1DA0FF;
+}
+
+#post {
+    font-family: 'Droid Serif', serif;
+    box-shadow: 0 6px 7px 0 rgba(0, 0, 0, 0.9);
+    font-size: 14px;
+    text-align: justify;
+    font-weight: 400;
+    background-color: #eeeeee;
+    border-bottom: 6px dotted #ffffff;
+    border-radius: 6px 6px 6px 6px;
+}
+
+.post-content {
+    padding:2%;
+}
+
+.post-unit {
+    background-color:#4c4c4c;
+    font-size:18px;
+    border-bottom: 6px dotted #ffffff;
+    padding: 20px;
+    font-weight: 200;
+    line-height: 30px;
+    border-radius: 6px 6px 6px 6px;
+}
+
+.footer {
+    font-size: 80%;
+    margin-top: 2em;
+    overflow: hidden;
+    text-align: center;
+}
+
+.post-content h2 {
+    margin: 0.3em 0 0.6em 0;
+}
+
+.post-content h3 {
+    margin: 0.3em 0 0.6em 0;
+}
+
+.navbar-inverse .navbar-text.navbar-title {
+    color:#F9440E;
+    font-family: 'Droid Sans', sans-serif;
+    font-weight:700;
+    font-size:16px;
+}
+.navbar-inverse .nav > li > a {
+    font-family: 'Droid Sans', sans-serif;
+    color: #eeeeee;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'Droid Sans', sans-serif;
+}
+
+.navbar-inverse .navbar-inner {
+    background-color: #4C4C4C;
+    background-image: linear-gradient(to top, #4C4C4C, #1C1C1C);
+    background-repeat: repeat-x;
+    border-color: #4C4C4C;
+}

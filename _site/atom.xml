@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+ 
+ <title>Tom Preston-Werner</title>
+ <link href="http://markbahnman.github.com/atom.xml" rel="self"/>
+ <link href="http://markbahnman.github.com/"/>
+ <updated>2013-02-16T13:22:57-08:00</updated>
+ <id>http://markbahnman.github.com/</id>
+ <author>
+   <name>Mark Bahnman</name>
+   <email>mark.bahnman@gmail.com</email>
+ </author>
+
+ 
+ <entry>
+   <title>Javascript, jQuery, and Modules</title>
+   <link href="http://markbahnman.github.com/2013/02/16/javascript-jquery-and-modules.html"/>
+   <updated>2013-02-16T00:00:00-08:00</updated>
+   <id>http://markbahnman.github.com/2013/02/16/javascript-jquery-and-modules</id>
+   <content type="html">&lt;p&gt;Having not done much with javascript other than some simple hacks, I was inspired by &lt;a href=&quot;https://shanetomlinson.com/2013/testing-javascript-frontend-part-1-anti-patterns-and-fixes/&quot;&gt;this post&lt;/a&gt; to do a major refactor of the &lt;span class=&quot;hint hint--top&quot; data-hint=&quot;Hubski Enhancement Suite&quot;&gt;HES&lt;/span&gt; userscript. You can look at the full refactored userscript &lt;a href=&quot;https://gist.github.com/markbahnman/4968550&quot;&gt;here&lt;/a&gt;. It has the exact same functionality as the before but I believe it will be much nicer to read, maintain and extend with these changes.&lt;/p&gt;
+
+&lt;h3&gt;Making javascript human readable with jQuery&lt;/h3&gt;
+
+&lt;p&gt;First things first, we want to the to be code easy to understand and thus easier to maintain. For instance, can you guess what this piece of code does?&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre data-line=''&gt;&lt;code class='language-javascript'&gt;window.location = document.getElementsByClassName('gridfeed')[0].childNodes[feedSelectionIndex].childNodes[1].childNodes[2].childNodes[1].childNodes[1].href;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;It's not easy to tell without following the through each set of children. I think it can be agreed that this is easier on the eyes.&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre data-line=''&gt;&lt;code class='language-javascript'&gt;feed.currentNode.find('.savesplit &amp;gt; a:contains(&amp;quot;hide&amp;quot;)').click();&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;I'll admit, something as simple as &lt;span class=&quot;hint hint--bottom&quot; data-hint=&quot;The .savesplit, a, and :contains&quot;&gt;selectors&lt;/span&gt; blew my mind when I first saw them. One disadvantage to using jQuery in a userscript is that in Google Chrome the file containing jQuery is out of the scope of the userscript. In order to access the file you need to inject your script into the page.&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre data-line=''&gt;&lt;code class='language-javascript'&gt;function addScript(callback) {
+    window.onload = function() {
+        var script = document.createElement('script');
+        script.textContent = '(' + callback.toString() + ')();';
+        document.body.appendChild(script);
+    }
+}
+
+function main() { /* Userscript goes here */ }
+
+addScript(main);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;This uses a simplified version of the addJquery function by &lt;a href=&quot;http://erikvold.com/blog/index.cfm/2010/6/14/using-jquery-with-a-user-script&quot;&gt;Erik Void&lt;/a&gt;. We don't need to load jQuery ourselves because Hubski does that for us; we merely need it in our scope. Also, loading our own jQuery in addition to hubski's introduces its own set of problems.&lt;/p&gt;
+
+&lt;h3&gt;Abstracting functionality with modules&lt;/h3&gt;
+
+&lt;p&gt;Each piece of major functionality can be wrapped into its own module. Each module has the general form&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre data-line=''&gt;&lt;code class='language-javascript'&gt;modules['moduleKey'] = (function() {
+    var Module = {
+        init: function() { /*initialize stuff*/},
+        isLoaded: function() {/*determine if module should be run*/}
+    };
+    privateMember;
+    privateFunction() {}
+    return Module;
+    }());&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Every module needs at least two function: &lt;code&gt;init()&lt;/code&gt; to initialize the module (attach event handlers, insert spans, etc) and &lt;code&gt;isLoaded()&lt;/code&gt; to determine if the module should be run on the current page. This makes loading all applicable modules as easy as&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre data-line=''&gt;&lt;code class='language-javascript'&gt;for(mod in modules) {
+    if(modules[mod].isLoaded()) {
+        modules[mod].init();
+    }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;The eventual goal of using this pattern is to be able to do unit tests which will require that we be able to initialize and cleanup the modules for each test.&lt;/p&gt;
+
+&lt;h3&gt;Getting rid of massive if/else blocks&lt;/h3&gt;
+
+&lt;p&gt;The shortcuts module contains all of the keyboard shortcuts for every applicable page on hubski. One of the major changes made to the shortcut functions is instead of using massive if/else blocks for determining which combination of keys was we use objects to map the functions to the key code. We have seperate objects for each applicable page (A single post, the user feed, notifications page, etc) and store keycode/function pairs in each object as such.&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre data-line=''&gt;&lt;code class='language-javascript'&gt;var postShortKeys = {
+        '65': // 'a'
+            function() { $('.longplusminus &amp;gt; a').click(); },
+        '82': // 'r'
+            function() { $('[name=&amp;quot;text&amp;quot;]').focus(); },
+        '83': // 's'
+            function() { $('.titlelinks &amp;gt; a:contains(&amp;quot;save&amp;quot;)').click(); }
+    };&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Once we have all these objects defined we can determine which ones should be available to the user and combine them using the &lt;a href=&quot;http://api.jquery.com/jQuery.extend/&quot;&gt;extend&lt;/a&gt; function.&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre data-line=''&gt;&lt;code class='language-javascript'&gt;var keyMap = {};
+function buildKeyMap() {
+    $.extend(keyMap,generalShortKeys);
+    if(isPost) {$.extend(keyMap,postShortKeys)};
+    // ...
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;This simplifies the function call in the keyup event handler to something like&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;pre data-line=''&gt;&lt;code class='language-javascript'&gt;keyMap[event.code]();&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;There are a few drawbacks to using this method as opposed to a if/else or switch/case block, however. For instance, it doesn't look as nice when you are using several different key codes to do the same thing. If you were using a switch statement you could let the those cases just fall through. Also if you want to use key combinations such as &lt;code&gt;Shift + &amp;lt;key&amp;gt;&lt;/code&gt; you can't simply rely on the keycode, as &lt;code&gt;Shift + o&lt;/code&gt; and &lt;code&gt;o&lt;/code&gt; will be detected with the same code.&lt;/p&gt;
+</content>
+ </entry>
+ 
+</feed>
