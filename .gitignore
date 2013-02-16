@@ -1,0 +1,7 @@
+_drafts/
+serve/
+.DS_Store
+*.swp
+*~
+_includes/
+_layouts/
