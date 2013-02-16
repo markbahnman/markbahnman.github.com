@@ -7,7 +7,8 @@ url: http://localhost:4000
 source:      .
 destination: ./_site
 plugins:     ./_plugins
+exclude: ["README.md"]
 markdown: rdiscount
-pygments: false
-paginate: 6
+pygments: true
+paginate: 4
 permalink: date

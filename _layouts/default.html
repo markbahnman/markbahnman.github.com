@@ -2,6 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <meta content="width=device-width, initial-scale=1.0" name="viewport">
+   <link href='http://fonts.googleapis.com/css?family=Droid+Serif|Droid+Sans:400,700' rel='stylesheet' type='text/css'>
    <title>{{ page.title }}</title>
    <meta name="author" content="Mark Bahnman" />
    {% include css.html %}
@@ -11,6 +13,8 @@
 	
 	{{content}}
    
+   {% include footer.html %}
+
 	{% include js.html %}
 	</body>
 </html>

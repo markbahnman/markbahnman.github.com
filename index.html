@@ -1,46 +1,15 @@
 ---
 layout: default
-title: Mark Bahnman
+header: A Developers Blog
 ---
-
-    <div class="container-fluid">
-	<div class="row-fluid">
-        <div class="span9">
-		<div class="row-fluid">
-	{% for post in paginator.posts limit:3 %}
-            <div class="span4">
-              <h2>{{ post.title }}</h2>
-              <p>{{post.date}}</p>
-			  <p><a class="btn" href="{{ post.url }}">Read More &raquo;</a></p>
-            </div><!--/span-->
+    <div class="container">
+	{% for post in paginator.posts %}
+        <a href="{{ post.url }}">
+            <div class="post-unit">
+                <p class="date pull-right">{{ post.date|date_to_string }}</p>
+                <h2 class="title">{{ post.title }}</h2>
+                <h3 class="subtitle">{{ post.subtitle }}</h3>
+            </div><!--/post-unit-->
+        </a>
     {% endfor %}
-		</div><!--/row-->
-		<div class="row-fluid">
-	{% for post in paginator.posts limit:3 offset:3 %}
-            <div class="span4">
-              <h2>{{ post.title }}</h2>
-              <p>{{post.date}}</p>
-			  <p><a class="btn" href="{{ post.url }}">Read More &raquo;</a></p>
-            </div><!--/span-->     
-	{% endfor %}
-		</div><!--/row-->
-	</div><!--/span9-->
-		
-	<div class="row-fluid">
-	{% if paginator.total_pages > 1 %}
-		{% if paginator.previous_page %}
-			<a href="/page{{paginator.previous_page}}" class="previous">Previous</a>
-		{% else %}
-			<span class="previous">Previous</span>
-		{% endif %}
-		<span class="page_number">Page: {{paginator.page}} of {{paginator.total_pages}}</span>
-		{% if paginator.next_page %}
-			<a href="/page{{paginator.next_page}}" class="next ">Next</a>
-		{% else %}
-			<span class="next ">Next</span>
-		{% endif %}
-	{% endif %}
-	<hr>
-	</div>
-    </div><!--/.fluid-container-->
-
+    </div><!--/.container-->
