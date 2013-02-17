@@ -1,4 +1,4 @@
-[markbahnman.github.com](http://markbahnman.github.com/)
+markbahnman.github.com
 ======================
 Source code for my personal blog. 
 
