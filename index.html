@@ -2,14 +2,14 @@
 layout: default
 header: A Developers Blog
 ---
-    <div class="container">
+<div class="container">
 	{% for post in paginator.posts %}
-        <a href="{{ post.url }}">
-            <div class="post-unit">
-                <p class="date pull-right">{{ post.date|date_to_string }}</p>
-                <h2 class="title">{{ post.title }}</h2>
-                <h3 class="subtitle">{{ post.subtitle }}</h3>
-            </div><!--/post-unit-->
-        </a>
-    {% endfor %}
-    </div><!--/.container-->
+    <a href="{{ post.url }}">
+      <div class="post-unit">
+          <p class="date pull-right">{{ post.date|date_to_string }}</p>
+          <h2 class="title">{{ post.title }}</h2>
+          <h3 class="subtitle">{{ post.subtitle }}</h3>
+      </div><!--/post-unit-->
+    </a>
+  {% endfor %}
+</div><!--/.container-->
